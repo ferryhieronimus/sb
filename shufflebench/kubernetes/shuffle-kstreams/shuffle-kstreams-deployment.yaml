@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: shuffle-kstreams
-  replicas: 6
+  replicas: 9
   template:
     metadata:
       labels:
