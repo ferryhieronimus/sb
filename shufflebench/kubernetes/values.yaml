@@ -9,7 +9,7 @@ kcat:
 
 strimzi:
   kafka:
-    replicas: 3
+    replicas: 6
     config:
       "auto.create.topics.enable": false
       "log.retention.ms": "7200000" # 2h
