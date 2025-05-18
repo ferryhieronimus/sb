@@ -1,0 +1,50 @@
+apiVersion: theodolite.rocks/v1beta1
+kind: execution
+metadata:
+  name: shufflebench-kstreams-baseline-stp
+spec:
+  benchmark: shuffle-kstreams
+  load:
+    loadType: "MessagesPerSecond"
+    # approx. 360k/sec -> [300k,500k]
+    loadValues: [75000, 77500, 80000, 82500, 85000, 87500, 90000, 92500, 95000, 97500, 100000, 102500, 105000, 107500, 110000, 112500, 115000, 117500, 120000, 122500, 125000]
+  resources:
+    resourceType: "Instances"
+    resourceValues: [9]
+  slos:
+    - name: lag trend
+      properties:
+        warmup: 180 # in seconds
+  execution:
+    metric: capacity
+    strategy:
+      name: "BinarySearch"
+    duration: 900 # in seconds
+    loadGenerationDelay: 30 # in seconds
+    repetitions: 3
+  configOverrides:
+    - patcher:
+        type: "EnvVarPatcher"
+        resource: "shuffle-kstreams-deployment.yaml"
+        properties:
+          container: "shuffle-kstreams"
+          variableName: "MATCHER_ZIPF_NUM_RULES"
+      value: "1000000"
+    - patcher:
+        type: "NodeSelectorPatcher"
+        resource: "shuffle-kstreams-deployment.yaml"
+        properties:
+          variableName: "type"
+      value: "sut"
+    - patcher:
+        type: "NodeSelectorPatcher"
+        resource: "shuffle-load-generator-deployment.yaml"
+        properties:
+          variableName: "type"
+      value: "infra"
+    - patcher:
+        type: "NodeSelectorPatcher"
+        resource: "shuffle-latency-exporter-deployment.yaml"
+        properties:
+          variableName: "type"
+      value: "infra"

@@ -1,0 +1,340 @@
+{
+  "executionId" : 157,
+  "name" : "shufflebench-kstreams-baseline-stp",
+  "benchmark" : "shuffle-kstreams",
+  "load" : {
+    "loadType" : "MessagesPerSecond",
+    "loadValues" : [ 75000, 77500, 80000, 82500, 85000, 87500, 90000, 92500, 95000, 97500, 100000, 102500, 105000, 107500, 110000, 112500, 115000, 117500, 120000, 122500, 125000 ]
+  },
+  "resources" : {
+    "resourceType" : "Instances",
+    "resourceValues" : [ 9 ]
+  },
+  "slos" : [ {
+    "name" : "lag trend",
+    "properties" : {
+      "warmup" : "180"
+    }
+  } ],
+  "execution" : {
+    "metric" : "capacity",
+    "strategy" : {
+      "name" : "BinarySearch",
+      "restrictions" : [ ],
+      "guessStrategy" : "",
+      "searchStrategy" : ""
+    },
+    "loadGenerationDelay" : 30,
+    "afterTeardownDelay" : 5,
+    "repetitions" : 3,
+    "duration" : 900
+  },
+  "configOverrides" : [ {
+    "patcher" : {
+      "type" : "EnvVarPatcher",
+      "resource" : "shuffle-kstreams-deployment.yaml",
+      "properties" : {
+        "container" : "shuffle-kstreams",
+        "variableName" : "MATCHER_ZIPF_NUM_RULES"
+      }
+    },
+    "value" : "1000000"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "input-topic.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-kstreams-baseline-stp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "output-topic.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-kstreams-baseline-stp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-kstreams-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-kstreams-baseline-stp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-kstreams-jmx-configmap.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-kstreams-baseline-stp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-kstreams-service-monitor.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-kstreams-baseline-stp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-kstreams-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-kstreams-baseline-stp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-kstreams-baseline-stp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service-monitor.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-kstreams-baseline-stp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-kstreams-baseline-stp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-kstreams-baseline-stp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-kstreams-baseline-stp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "input-topic.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-kstreams"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "output-topic.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-kstreams"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-kstreams-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-kstreams"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-kstreams-jmx-configmap.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-kstreams"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-kstreams-service-monitor.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-kstreams"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-kstreams-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-kstreams"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-kstreams"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service-monitor.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-kstreams"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-kstreams"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-kstreams"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-kstreams"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "input-topic.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "output-topic.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-kstreams-deployment.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-kstreams-jmx-configmap.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-kstreams-service-monitor.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-kstreams-service.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-deployment.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service-monitor.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-deployment.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-service.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  } ]
+}

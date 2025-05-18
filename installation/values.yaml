@@ -1,0 +1,82 @@
+kafkaClient:
+  enabled: true
+
+kcat:
+  enabled: true
+
+strimzi:
+  kafka:
+    config:
+      "auto.create.topics.enable": false
+      "log.retention.ms": "7200000" # 2h
+      "transaction.max.timeout.ms": "7200000" # 2h
+    jvmOptions: {}
+  zookeeper:
+    replicas: 3
+    zooEntrance:
+      enabled: false
+      zookeeperClient:
+        enabled: false
+  schemaRegistry:
+    enabled: false
+
+kube-prometheus-stack:
+  prometheus:
+    prometheusSpec:
+      scrapeInterval: 5s
+
+prometheus: 
+  scrapeInterval: 5s
+
+operator:
+  resultsVolume:
+    persistent:
+      enabled: false
+  # We do not use the streaming benchmarks from Theodolite
+  theodoliteBenchmarks:
+    resourceConfigMaps:
+      uc1LoadGenerator: false
+      uc1Kstreams: false
+      uc1Flink: false
+      uc1Hazelcast: false
+      uc1BeamFlink: false
+      uc1BeamSamza: false
+      uc2LoadGenerator: false
+      uc2Kstreams: false
+      uc2Flink: false
+      uc2Hazelcast: false
+      uc2BeamFlink: false
+      uc2BeamSamza: false
+      uc3LoadGenerator: false
+      uc3Kstreams: false
+      uc3Flink: false
+      uc3Hazelcast: false
+      uc3BeamFlink: false
+      uc3BeamSamza: false
+      uc4LoadGenerator: false
+      uc4Kstreams: false
+      uc4Flink: false
+      uc4Hazelcast: false
+      uc4BeamFlink: false
+      uc4BeamSamza: false
+    benchmarks:
+      uc1Kstreams: false
+      uc1Flink: false
+      uc1Hazelcast: false
+      uc1BeamFlink: false
+      uc1BeamSamza: false
+      uc2Kstreams: false
+      uc2Flink: false
+      uc2Hazelcast: false
+      uc2BeamFlink: false
+      uc2BeamSamza: false
+      uc3Kstreams: false
+      uc3Flink: false
+      uc3Hazelcast: false
+      uc3BeamFlink: false
+      uc3BeamSamza: false
+      uc4Kstreams: false
+      uc4Flink: false
+      uc4Hazelcast: false
+      uc4BeamFlink: false
+      uc4BeamSamza: false

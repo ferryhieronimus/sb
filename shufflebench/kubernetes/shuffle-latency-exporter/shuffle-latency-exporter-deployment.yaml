@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shuffle-latency-exporter
+spec:
+  selector:
+    matchLabels:
+      app: shuffle-latency-exporter
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: shuffle-latency-exporter
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: shuffle-latency-exporter
+          image: ghcr.io/dynatrace-research/shufflebench/latency-exporter:latest
+          env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "theodolite-kafka-kafka-bootstrap:9092"

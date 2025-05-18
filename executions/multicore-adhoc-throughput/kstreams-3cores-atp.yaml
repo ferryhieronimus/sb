@@ -1,0 +1,72 @@
+apiVersion: theodolite.rocks/v1beta1
+kind: execution
+metadata:
+  name: shufflebench-kstreams-3cores-atp
+spec:
+  benchmark: shuffle-kstreams
+  load:
+    loadType: "MessagesPerSecond"
+    loadValues: [250000]
+  resources:
+    resourceType: "Instances"
+    resourceValues: [3]
+  slos:
+    - name: throughput
+  execution:
+    metric: capacity
+    strategy:
+      name: "LinearSearch"
+    duration: 900 # in seconds
+    loadGenerationDelay: 30 # in seconds
+    repetitions: 3
+  configOverrides:
+    - patcher:
+        type: "EnvVarPatcher"
+        resource: "shuffle-kstreams-deployment.yaml"
+        properties:
+          container: "shuffle-kstreams"
+          variableName: "MATCHER_ZIPF_NUM_RULES"
+      value: "1000000"
+    - patcher:
+        type: EnvVarPatcher
+        resource: shuffle-kstreams-deployment.yaml
+        properties:
+          container: shuffle-kstreams
+          variableName: KAFKASTREAMS__NUM_STREAM_THREADS__
+      value: "3"
+    - patcher:
+        type: ResourceLimitPatcher
+        resource: shuffle-kstreams-deployment.yaml
+        properties:
+          container: shuffle-kstreams
+          limitedResource: cpu
+          factor: 1000
+          format: m
+      value: "3"
+    - patcher:
+        type: ResourceLimitPatcher
+        resource: shuffle-kstreams-deployment.yaml
+        properties:
+          container: shuffle-kstreams
+          limitedResource: memory
+          factor: 4
+          format: Gi
+      value: "3"
+    - patcher:
+        type: "NodeSelectorPatcher"
+        resource: "shuffle-kstreams-deployment.yaml"
+        properties:
+          variableName: "type"
+      value: "sut"
+    - patcher:
+        type: "NodeSelectorPatcher"
+        resource: "shuffle-load-generator-deployment.yaml"
+        properties:
+          variableName: "type"
+      value: "infra"
+    - patcher:
+        type: "NodeSelectorPatcher"
+        resource: "shuffle-latency-exporter-deployment.yaml"
+        properties:
+          variableName: "type"
+      value: "infra"

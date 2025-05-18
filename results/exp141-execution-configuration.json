@@ -1,0 +1,331 @@
+{
+  "executionId" : 141,
+  "name" : "shufflebench-spark-512b-atp",
+  "benchmark" : "shuffle-spark",
+  "load" : {
+    "loadType" : "MessagesPerSecond",
+    "loadValues" : [ 250000 ]
+  },
+  "resources" : {
+    "resourceType" : "Instances",
+    "resourceValues" : [ 9 ]
+  },
+  "slos" : [ {
+    "name" : "throughput",
+    "properties" : { }
+  } ],
+  "execution" : {
+    "metric" : "capacity",
+    "strategy" : {
+      "name" : "FullSearch",
+      "restrictions" : [ ],
+      "guessStrategy" : "",
+      "searchStrategy" : ""
+    },
+    "loadGenerationDelay" : 30,
+    "afterTeardownDelay" : 5,
+    "repetitions" : 3,
+    "duration" : 900
+  },
+  "configOverrides" : [ {
+    "patcher" : {
+      "type" : "EnvVarPatcher",
+      "resource" : "spark-master-deployment.yaml",
+      "properties" : {
+        "container" : "spark-submit",
+        "variableName" : "SPARK_MAX_OFFSETS_PER_TRIGGER"
+      }
+    },
+    "value" : "1000000"
+  }, {
+    "patcher" : {
+      "type" : "EnvVarPatcher",
+      "resource" : "spark-master-deployment.yaml",
+      "properties" : {
+        "container" : "spark-submit",
+        "variableName" : "MATCHER_ZIPF_NUM_RULES"
+      }
+    },
+    "value" : "1000000"
+  }, {
+    "patcher" : {
+      "type" : "EnvVarPatcher",
+      "resource" : "shuffle-load-generator-deployment.yaml",
+      "properties" : {
+        "container" : "shuffle-load-generator",
+        "variableName" : "RECORD_SIZE_BYTES"
+      }
+    },
+    "value" : "512"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "input-topic.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-spark-512b-atp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "output-topic.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-spark-512b-atp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "spark-master-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-spark-512b-atp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "spark-master-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-spark-512b-atp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "spark-worker-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-spark-512b-atp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-spark-512b-atp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service-monitor.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-spark-512b-atp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-spark-512b-atp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-spark-512b-atp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-spark-512b-atp"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "input-topic.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-spark"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "output-topic.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-spark"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "spark-master-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-spark"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "spark-master-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-spark"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "spark-worker-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-spark"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-spark"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service-monitor.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-spark"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-spark"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-spark"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-spark"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "input-topic.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "output-topic.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "spark-master-deployment.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "spark-master-service.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "spark-worker-deployment.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-deployment.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service-monitor.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-deployment.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-service.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  } ]
+}

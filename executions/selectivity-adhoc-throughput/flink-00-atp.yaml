@@ -1,0 +1,60 @@
+apiVersion: theodolite.rocks/v1beta1
+kind: execution
+metadata:
+  name: shufflebench-flink-00-atp
+spec:
+  benchmark: shuffle-flink
+  load:
+    loadType: "MessagesPerSecond"
+    loadValues: [250000]
+  resources:
+    resourceType: "Instances"
+    resourceValues: [9]
+  slos:
+    - name: throughput
+  execution:
+    metric: capacity
+    strategy:
+      name: "LinearSearch"
+    duration: 900 # in seconds
+    loadGenerationDelay: 30 # in seconds
+    repetitions: 3
+  configOverrides:
+    - patcher:
+        type: "EnvVarPatcher"
+        resource: "jobmanager-deployment.yaml"
+        properties:
+          container: "jobmanager"
+          variableName: "MATCHER_ZIPF_NUM_RULES"
+      value: "1000000"
+    - patcher:
+        type: "EnvVarPatcher"
+        resource: "jobmanager-deployment.yaml"
+        properties:
+          container: "jobmanager"
+          variableName: "MATCHER_ZIPF_TOTAL_SELECTIVITY"
+      value: "0.0"
+    - patcher:
+        type: "NodeSelectorPatcher"
+        resource: "jobmanager-deployment.yaml"
+        properties:
+          variableName: "type"
+      value: "sut"
+    - patcher:
+        type: "NodeSelectorPatcher"
+        resource: "taskmanager-deployment.yaml"
+        properties:
+          variableName: "type"
+      value: "sut"
+    - patcher:
+        type: "NodeSelectorPatcher"
+        resource: "shuffle-load-generator-deployment.yaml"
+        properties:
+          variableName: "type"
+      value: "infra"
+    - patcher:
+        type: "NodeSelectorPatcher"
+        resource: "shuffle-latency-exporter-deployment.yaml"
+        properties:
+          variableName: "type"
+      value: "infra"

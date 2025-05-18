@@ -1,0 +1,199 @@
+{
+  "name" : "shuffle-flink",
+  "waitForResourcesEnabled" : false,
+  "resourceTypes" : [ {
+    "typeName" : "Instances",
+    "patchers" : [ {
+      "type" : "ReplicaPatcher",
+      "resource" : "taskmanager-deployment.yaml",
+      "properties" : { }
+    }, {
+      "type" : "EnvVarPatcher",
+      "resource" : "jobmanager-deployment.yaml",
+      "properties" : {
+        "container" : "jobmanager",
+        "variableName" : "FLINK_PARALLELISM"
+      }
+    } ]
+  } ],
+  "loadTypes" : [ {
+    "typeName" : "MessagesPerSecond",
+    "patchers" : [ {
+      "type" : "EnvVarPatcher",
+      "resource" : "shuffle-load-generator-deployment.yaml",
+      "properties" : {
+        "container" : "shuffle-load-generator",
+        "variableName" : "NUM_RECORDS_PER_SOURCE_SECOND"
+      }
+    } ]
+  } ],
+  "slos" : [ {
+    "name" : "lag trend",
+    "sloType" : "lag trend",
+    "prometheusUrl" : "http://prometheus-operated:9090",
+    "properties" : {
+      "consumerGroup" : "shufflebench-flink",
+      "externalSloUrl" : "http://localhost:80/evaluate-slope",
+      "thresholdRelToLoad" : "0.01",
+      "warmup" : "120"
+    },
+    "offset" : 0
+  }, {
+    "name" : "throughput",
+    "sloType" : "generic",
+    "prometheusUrl" : "http://prometheus-operated:9090",
+    "properties" : {
+      "externalSloUrl" : "http://localhost:8082",
+      "operator" : "gte",
+      "promQLQuery" : "sum by(consumergroup,topic) (rate(kafka_consumergroup_current_offset{topic='input'}[10s]) >= 0)",
+      "queryAggregation" : "mean",
+      "repetitionAggregation" : "median",
+      "threshold" : "0",
+      "warmup" : "120"
+    },
+    "offset" : 0
+  }, {
+    "name" : "latency_p50",
+    "sloType" : "generic",
+    "prometheusUrl" : "http://prometheus-operated:9090",
+    "properties" : {
+      "externalSloUrl" : "http://localhost:8082",
+      "operator" : "gte",
+      "promQLQuery" : "histogram_quantile(0.5, sum(rate(shufflebench_latency_seconds_bucket[20s])) by (le))",
+      "queryAggregation" : "mean",
+      "repetitionAggregation" : "median",
+      "threshold" : "0",
+      "warmup" : "120"
+    },
+    "offset" : 0
+  }, {
+    "name" : "latency_p90",
+    "sloType" : "generic",
+    "prometheusUrl" : "http://prometheus-operated:9090",
+    "properties" : {
+      "externalSloUrl" : "http://localhost:8082",
+      "operator" : "gte",
+      "promQLQuery" : "histogram_quantile(0.90, sum(rate(shufflebench_latency_seconds_bucket[20s])) by (le))",
+      "queryAggregation" : "mean",
+      "repetitionAggregation" : "median",
+      "threshold" : "0",
+      "warmup" : "120"
+    },
+    "offset" : 0
+  }, {
+    "name" : "latency_p95",
+    "sloType" : "generic",
+    "prometheusUrl" : "http://prometheus-operated:9090",
+    "properties" : {
+      "externalSloUrl" : "http://localhost:8082",
+      "operator" : "gte",
+      "promQLQuery" : "histogram_quantile(0.95, sum(rate(shufflebench_latency_seconds_bucket[20s])) by (le))",
+      "queryAggregation" : "mean",
+      "repetitionAggregation" : "median",
+      "threshold" : "0",
+      "warmup" : "120"
+    },
+    "offset" : 0
+  }, {
+    "name" : "latency_p99",
+    "sloType" : "generic",
+    "prometheusUrl" : "http://prometheus-operated:9090",
+    "properties" : {
+      "externalSloUrl" : "http://localhost:8082",
+      "operator" : "gte",
+      "promQLQuery" : "histogram_quantile(0.99, sum(rate(shufflebench_latency_seconds_bucket[20s])) by (le))",
+      "queryAggregation" : "mean",
+      "repetitionAggregation" : "median",
+      "threshold" : "0",
+      "warmup" : "120"
+    },
+    "offset" : 0
+  }, {
+    "name" : "latency_p50_total",
+    "sloType" : "generic",
+    "prometheusUrl" : "http://prometheus-operated:9090",
+    "properties" : {
+      "externalSloUrl" : "http://localhost:8082",
+      "operator" : "gte",
+      "promQLQuery" : "histogram_quantile(0.50, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))",
+      "queryAggregation" : "mean",
+      "repetitionAggregation" : "median",
+      "threshold" : "0",
+      "warmup" : "180"
+    },
+    "offset" : 0
+  }, {
+    "name" : "latency_p90_total",
+    "sloType" : "generic",
+    "prometheusUrl" : "http://prometheus-operated:9090",
+    "properties" : {
+      "externalSloUrl" : "http://localhost:8082",
+      "operator" : "gte",
+      "promQLQuery" : "histogram_quantile(0.90, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))",
+      "queryAggregation" : "mean",
+      "repetitionAggregation" : "median",
+      "threshold" : "0",
+      "warmup" : "180"
+    },
+    "offset" : 0
+  }, {
+    "name" : "latency_p95_total",
+    "sloType" : "generic",
+    "prometheusUrl" : "http://prometheus-operated:9090",
+    "properties" : {
+      "externalSloUrl" : "http://localhost:8082",
+      "operator" : "gte",
+      "promQLQuery" : "histogram_quantile(0.95, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))",
+      "queryAggregation" : "mean",
+      "repetitionAggregation" : "median",
+      "threshold" : "0",
+      "warmup" : "180"
+    },
+    "offset" : 0
+  }, {
+    "name" : "latency_p99_total",
+    "sloType" : "generic",
+    "prometheusUrl" : "http://prometheus-operated:9090",
+    "properties" : {
+      "externalSloUrl" : "http://localhost:8082",
+      "operator" : "gte",
+      "promQLQuery" : "histogram_quantile(0.99, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))",
+      "queryAggregation" : "mean",
+      "repetitionAggregation" : "median",
+      "threshold" : "0",
+      "warmup" : "180"
+    },
+    "offset" : 0
+  } ],
+  "kafkaConfig" : null,
+  "infrastructure" : {
+    "resources" : [ ],
+    "beforeActions" : [ ],
+    "afterActions" : [ ]
+  },
+  "sut" : {
+    "resources" : [ {
+      "configMap" : {
+        "name" : "shufflebench-resources-flink",
+        "files" : [ "input-topic.yaml", "output-topic.yaml", "flink-configuration-configmap.yaml", "jobmanager-deployment.yaml", "jobmanager-service.yaml", "service-monitor.yaml", "taskmanager-deployment.yaml", "taskmanager-service.yaml" ]
+      }
+    }, {
+      "configMap" : {
+        "name" : "shufflebench-resources-latency-exporter",
+        "files" : [ "shuffle-latency-exporter-deployment.yaml", "shuffle-latency-exporter-service-monitor.yaml", "shuffle-latency-exporter-service.yaml" ]
+      }
+    } ],
+    "beforeActions" : [ ],
+    "afterActions" : [ ]
+  },
+  "loadGenerator" : {
+    "resources" : [ {
+      "configMap" : {
+        "name" : "shufflebench-resources-load-generator",
+        "files" : [ "shuffle-load-generator-service.yaml", "shuffle-load-generator-deployment.yaml" ]
+      }
+    } ],
+    "beforeActions" : [ ],
+    "afterActions" : [ ]
+  }
+}

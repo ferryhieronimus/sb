@@ -1,0 +1,41 @@
+apiVersion: theodolite.rocks/v1beta1
+kind: execution
+metadata:
+  name: shufflebench-example-hzcast-atp
+spec:
+  benchmark: shuffle-hzcast
+  load:
+    loadType: "MessagesPerSecond"
+    loadValues: [40000]
+  resources:
+    resourceType: "Instances"
+    resourceValues: [1]
+  slos:
+    - name: throughput
+  execution:
+    metric: capacity
+    strategy:
+      name: "LinearSearch"
+    duration: 600 # in seconds
+    loadGenerationDelay: 30 # in seconds
+    repetitions: 1
+  configOverrides:
+    - patcher:
+        type: "ReplicaPatcher"
+        resource: "shuffle-load-generator-deployment.yaml"
+      value: "1"
+    - patcher:
+        type: ResourceLimitPatcher
+        resource: "shuffle-hzcast-deployment.yaml"
+        properties:
+          container: shuffle-hzcast
+          limitedResource: cpu
+      value: "250m"
+    - patcher:
+        type: "EnvVarPatcher"
+        resource: "shuffle-hzcast-deployment.yaml"
+        properties:
+          container: "shuffle-hzcast"
+          variableName: "MATCHER_ZIPF_NUM_RULES"
+      value: "1000000"
+

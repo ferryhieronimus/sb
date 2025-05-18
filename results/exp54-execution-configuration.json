@@ -1,0 +1,528 @@
+{
+  "executionId" : 54,
+  "name" : "shufflebench-flink-128b-lty",
+  "benchmark" : "shuffle-flink",
+  "load" : {
+    "loadType" : "MessagesPerSecond",
+    "loadValues" : [ 22500 ]
+  },
+  "resources" : {
+    "resourceType" : "Instances",
+    "resourceValues" : [ 9 ]
+  },
+  "slos" : [ {
+    "name" : "throughput",
+    "properties" : { }
+  }, {
+    "name" : "latency_p05",
+    "properties" : { }
+  }, {
+    "name" : "latency_p10",
+    "properties" : { }
+  }, {
+    "name" : "latency_p15",
+    "properties" : { }
+  }, {
+    "name" : "latency_p20",
+    "properties" : { }
+  }, {
+    "name" : "latency_p25",
+    "properties" : { }
+  }, {
+    "name" : "latency_p30",
+    "properties" : { }
+  }, {
+    "name" : "latency_p35",
+    "properties" : { }
+  }, {
+    "name" : "latency_p40",
+    "properties" : { }
+  }, {
+    "name" : "latency_p45",
+    "properties" : { }
+  }, {
+    "name" : "latency_p50",
+    "properties" : { }
+  }, {
+    "name" : "latency_p55",
+    "properties" : { }
+  }, {
+    "name" : "latency_p60",
+    "properties" : { }
+  }, {
+    "name" : "latency_p65",
+    "properties" : { }
+  }, {
+    "name" : "latency_p70",
+    "properties" : { }
+  }, {
+    "name" : "latency_p75",
+    "properties" : { }
+  }, {
+    "name" : "latency_p80",
+    "properties" : { }
+  }, {
+    "name" : "latency_p85",
+    "properties" : { }
+  }, {
+    "name" : "latency_p90",
+    "properties" : { }
+  }, {
+    "name" : "latency_p95",
+    "properties" : { }
+  }, {
+    "name" : "latency_p99",
+    "properties" : { }
+  }, {
+    "name" : "latency_p100",
+    "properties" : { }
+  }, {
+    "name" : "latency_p05_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p10_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p15_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p20_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p25_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p30_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p35_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p40_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p45_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p50_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p55_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p60_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p65_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p70_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p75_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p80_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p85_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p90_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p95_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p99_total",
+    "properties" : { }
+  }, {
+    "name" : "latency_p100_total",
+    "properties" : { }
+  } ],
+  "execution" : {
+    "metric" : "capacity",
+    "strategy" : {
+      "name" : "LinearSearch",
+      "restrictions" : [ ],
+      "guessStrategy" : "",
+      "searchStrategy" : ""
+    },
+    "loadGenerationDelay" : 30,
+    "afterTeardownDelay" : 5,
+    "duration" : 900,
+    "repetitions" : 3
+  },
+  "configOverrides" : [ {
+    "patcher" : {
+      "type" : "EnvVarPatcher",
+      "resource" : "jobmanager-deployment.yaml",
+      "properties" : {
+        "container" : "jobmanager",
+        "variableName" : "MATCHER_ZIPF_NUM_RULES"
+      }
+    },
+    "value" : "1000000"
+  }, {
+    "patcher" : {
+      "type" : "EnvVarPatcher",
+      "resource" : "shuffle-load-generator-deployment.yaml",
+      "properties" : {
+        "container" : "shuffle-load-generator",
+        "variableName" : "RECORD_SIZE_BYTES"
+      }
+    },
+    "value" : "128"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "flink-configuration-configmap.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-flink-128b-lty"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "input-topic.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-flink-128b-lty"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "jobmanager-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-flink-128b-lty"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "jobmanager-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-flink-128b-lty"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "output-topic.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-flink-128b-lty"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "service-monitor.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-flink-128b-lty"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "taskmanager-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-flink-128b-lty"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "taskmanager-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-flink-128b-lty"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-flink-128b-lty"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service-monitor.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-flink-128b-lty"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-flink-128b-lty"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-flink-128b-lty"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-execution"
+      }
+    },
+    "value" : "shufflebench-flink-128b-lty"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "flink-configuration-configmap.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-flink"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "input-topic.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-flink"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "jobmanager-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-flink"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "jobmanager-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-flink"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "output-topic.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-flink"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "service-monitor.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-flink"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "taskmanager-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-flink"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "taskmanager-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-flink"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-flink"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service-monitor.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-flink"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-flink"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-deployment.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-flink"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-service.yaml",
+      "properties" : {
+        "variableName" : "deployed-for-benchmark"
+      }
+    },
+    "value" : "shuffle-flink"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "flink-configuration-configmap.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "input-topic.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "jobmanager-deployment.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "jobmanager-service.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "output-topic.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "service-monitor.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "taskmanager-deployment.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "taskmanager-service.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-deployment.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service-monitor.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-latency-exporter-service.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-deployment.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  }, {
+    "patcher" : {
+      "type" : "LabelPatcher",
+      "resource" : "shuffle-load-generator-service.yaml",
+      "properties" : {
+        "variableName" : "app.kubernetes.io/created-by"
+      }
+    },
+    "value" : "theodolite"
+  } ]
+}
