@@ -6,7 +6,7 @@ spec:
   benchmark: shuffle-kstreams
   load:
     loadType: "MessagesPerSecond"
-    loadValues: [75000]
+    loadValues: [150000]
   resources:
     resourceType: "Instances"
     resourceValues: [9]
