@@ -6,7 +6,7 @@ spec:
   benchmark: shuffle-kstreams
   load:
     loadType: "MessagesPerSecond"
-    loadValues: [10000]
+    loadValues: [250000]
   resources:
     resourceType: "Instances"
     resourceValues: [9]
@@ -17,8 +17,8 @@ spec:
     metric: capacity
     strategy:
       name: "LinearSearch"
-    duration: 300 # in seconds
-    loadGenerationDelay: 180 # in seconds
+    duration: 450 # in seconds
+    loadGenerationDelay: 150 # in seconds
     repetitions: 3
   configOverrides:
     - patcher:
