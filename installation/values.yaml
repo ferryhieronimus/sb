@@ -6,14 +6,14 @@ kcat:
 
 strimzi:
   kafka:
-    replicas: 6
+    replicas: 9
     config:
       "auto.create.topics.enable": false
       "log.retention.ms": "7200000" # 2h
       "transaction.max.timeout.ms": "7200000" # 2h
     jvmOptions: {}
   zookeeper:
-    replicas: 6
+    replicas: 9
     zooEntrance:
       enabled: false
       zookeeperClient:

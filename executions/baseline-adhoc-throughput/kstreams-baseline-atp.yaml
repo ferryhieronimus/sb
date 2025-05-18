@@ -17,9 +17,9 @@ spec:
     metric: capacity
     strategy:
       name: "LinearSearch"
-    duration: 450 # in seconds
-    loadGenerationDelay: 150 # in seconds
-    repetitions: 3
+    duration: 900 # in seconds
+    loadGenerationDelay: 30 # in seconds
+    repetitions: 2
   configOverrides:
     - patcher:
         type: "EnvVarPatcher"
