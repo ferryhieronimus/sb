@@ -12,7 +12,7 @@ strimzi:
       "transaction.max.timeout.ms": "7200000" # 2h
     jvmOptions: {}
   zookeeper:
-    replicas: 3
+    replicas: 6
     zooEntrance:
       enabled: false
       zookeeperClient:
