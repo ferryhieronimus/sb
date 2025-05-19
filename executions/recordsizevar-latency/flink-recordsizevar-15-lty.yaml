@@ -1,7 +1,7 @@
 apiVersion: theodolite.rocks/v1beta1
 kind: execution
 metadata:
-  name: shufflebench-flink-baseline-lty
+  name: shufflebench-flink-baseline-15-lty
 spec:
   benchmark: shuffle-flink
   load:
