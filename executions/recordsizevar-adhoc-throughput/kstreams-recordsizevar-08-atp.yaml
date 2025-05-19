@@ -1,7 +1,7 @@
 apiVersion: theodolite.rocks/v1beta1
 kind: execution
 metadata:
-  name: recordsizevar-adhoc-throughput
+  name: shufflebench-kstreams-recordsizevar-atp
 spec:
   benchmark: shuffle-kstreams
   load:
@@ -41,7 +41,7 @@ spec:
         properties:
           container: "shuffle-load-generator"
           variableName: "RECORD_SIZE_ZIPF_EXPONENT"
-      value: "1.1"
+      value: "0.8"
     - patcher:
         type: "NodeSelectorPatcher"
         resource: "shuffle-kstreams-deployment.yaml"
