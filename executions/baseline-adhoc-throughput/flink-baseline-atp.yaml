@@ -17,7 +17,7 @@ spec:
     strategy:
       name: "LinearSearch"
     duration: 300 # in seconds
-    loadGenerationDelay: 100 # in seconds
+    loadGenerationDelay: 60 # in seconds
     repetitions: 2
   configOverrides:
     - patcher:
