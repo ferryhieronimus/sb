@@ -6,7 +6,7 @@ spec:
   benchmark: shuffle-flink
   load:
     loadType: "MessagesPerSecond"
-    loadValues: [150000]
+    loadValues: [175000]
   resources:
     resourceType: "Instances"
     resourceValues: [9]
