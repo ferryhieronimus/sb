@@ -16,8 +16,8 @@ spec:
     metric: capacity
     strategy:
       name: "LinearSearch"
-    duration: 450 # in seconds
-    loadGenerationDelay: 30 # in seconds
+    duration: 300 # in seconds
+    loadGenerationDelay: 100 # in seconds
     repetitions: 2
   configOverrides:
     - patcher:
