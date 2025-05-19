@@ -15,7 +15,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: shuffle-hzcast
-          image: ghcr.io/dynatrace-research/shufflebench/shuffle-hzcast:latest
+          image: ferry11/shufflebench/shuffle-hzcast:latest
           ports:
             - containerPort: 5701
           env:
@@ -36,9 +36,9 @@ spec:
             - name: CONSUMER_INIT_COUNT_RANDOM
               value: "true"
             #- name: HAZELCAST_JET_JOB_PROCESSINGGUARANTEE
-              #value: "NONE"
-              #value: "AT_LEAST_ONCE"
-              #value: "EXACTLY_ONCE"
+            #value: "NONE"
+            #value: "AT_LEAST_ONCE"
+            #value: "EXACTLY_ONCE"
             # - name: HAZELCAST_JET_INSTANCE_BACKUP_COUNT
             #   value: "0"
             # - name: HAZELCAST_JET_EDGE_DEFAULTS_QUEUE_SIZE

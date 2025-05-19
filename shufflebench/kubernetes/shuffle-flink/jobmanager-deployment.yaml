@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: jobmanager
-          image: ghcr.io/dynatrace-research/shufflebench/shuffle-flink:latest
+          image: ferry11/shufflebench/shuffle-flink:latest
           env:
             - name: KAFKA_BOOTSTRAP_SERVERS
               value: "theodolite-kafka-kafka-bootstrap:9092"
@@ -35,7 +35,12 @@ spec:
             limits:
               memory: 2Gi
               cpu: 500m
-          args: ["standalone-job", "--job-classname", "com.dynatrace.research.shufflebench.FlinkShuffle"]
+          args:
+            [
+              "standalone-job",
+              "--job-classname",
+              "com.dynatrace.research.shufflebench.FlinkShuffle",
+            ]
           ports:
             - containerPort: 6123
               name: rpc
@@ -54,7 +59,7 @@ spec:
             - name: flink-config-volume
               mountPath: /opt/flink/conf
           securityContext:
-            runAsUser: 9999  # refers to user _flink_ from official flink image, change if necessary
+            runAsUser: 9999 # refers to user _flink_ from official flink image, change if necessary
       volumes:
         - name: flink-config-volume
           configMap:
