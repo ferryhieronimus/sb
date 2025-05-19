@@ -16,7 +16,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: shuffle-load-generator
-          image: ghcr.io/dynatrace-research/shufflebench/load-generator:latest
+          image: ferry11/shufflebench/load-generator:latest
           env:
             - name: SEED_STRING
               valueFrom:
