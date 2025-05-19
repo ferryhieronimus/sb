@@ -15,7 +15,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: shuffle-kstreams
-          image: ferry11/shufflebench/shuffle-kstreams:latest
+          image: ferry11/shuffle-kstreams:latest
           ports:
             - containerPort: 5555
               name: jmx

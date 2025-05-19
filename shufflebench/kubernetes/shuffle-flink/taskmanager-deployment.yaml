@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: taskmanager
-          image: ferry11/shufflebench/shuffle-flink:latest
+          image: ferry11/shuffle-flink:latest
           resources:
             limits:
               memory: 4Gi

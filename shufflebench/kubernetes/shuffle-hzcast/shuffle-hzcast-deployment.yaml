@@ -15,7 +15,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: shuffle-hzcast
-          image: ferry11/shufflebench/shuffle-hzcast:latest
+          image: ferry11/shuffle-hzcast:latest
           ports:
             - containerPort: 5701
           env:

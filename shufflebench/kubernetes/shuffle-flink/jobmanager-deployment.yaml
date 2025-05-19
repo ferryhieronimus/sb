@@ -17,7 +17,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
         - name: jobmanager
-          image: ferry11/shufflebench/shuffle-flink:latest
+          image: ferry11/shuffle-flink:latest
           env:
             - name: KAFKA_BOOTSTRAP_SERVERS
               value: "theodolite-kafka-kafka-bootstrap:9092"
