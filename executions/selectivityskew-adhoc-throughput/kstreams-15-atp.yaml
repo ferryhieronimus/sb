@@ -1,7 +1,7 @@
 apiVersion: theodolite.rocks/v1beta1
 kind: execution
 metadata:
-  name: shufflebench-kstreams-15-atp
+  name: shufflebench-kstreams-skew-15-atp
 spec:
   benchmark: shuffle-kstreams
   load:
