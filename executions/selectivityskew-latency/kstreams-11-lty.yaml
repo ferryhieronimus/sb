@@ -1,7 +1,7 @@
 apiVersion: theodolite.rocks/v1beta1
 kind: execution
 metadata:
-  name: shufflebench-kstreams-skew-05-lty
+  name: shufflebench-kstreams-skew-11-lty
 spec:
   benchmark: shuffle-kstreams
   load:
@@ -82,7 +82,7 @@ spec:
         properties:
           container: "shuffle-kstreams"
           variableName: "MATCHER_ZIPF_S"
-      value: "0.5"
+      value: "1.1"
     - patcher:
         type: "NodeSelectorPatcher"
         resource: "shuffle-kstreams-deployment.yaml"

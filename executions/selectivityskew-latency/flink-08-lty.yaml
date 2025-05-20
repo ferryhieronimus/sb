@@ -1,7 +1,7 @@
 apiVersion: theodolite.rocks/v1beta1
 kind: execution
 metadata:
-  name: shufflebench-flink-1.0-skew-lty
+  name: shufflebench-flink-08-skew-lty
 spec:
   benchmark: shuffle-flink
   load:
@@ -82,7 +82,7 @@ spec:
         properties:
           container: "jobmanager"
           variableName: "MATCHER_ZIPF_S"
-      value: "1.0"
+      value: "0.8"
     - patcher:
         type: "NodeSelectorPatcher"
         resource: "jobmanager-deployment.yaml"
