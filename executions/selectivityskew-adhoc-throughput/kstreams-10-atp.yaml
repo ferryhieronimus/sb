@@ -34,6 +34,13 @@ spec:
         properties:
           container: "shuffle-kstreams"
           variableName: "MATCHER_ZIPF_TOTAL_SELECTIVITY"
+      value: "1"
+    - patcher:
+        type: "EnvVarPatcher"
+        resource: "shuffle-kstreams-deployment.yaml"
+        properties:
+          container: "shuffle-kstreams"
+          variableName: "MATCHER_ZIPF_S"
       value: "1.0"
     - patcher:
         type: "NodeSelectorPatcher"

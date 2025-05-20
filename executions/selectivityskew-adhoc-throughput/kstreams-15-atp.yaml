@@ -1,7 +1,7 @@
 apiVersion: theodolite.rocks/v1beta1
 kind: execution
 metadata:
-  name: shufflebench-kstreams-10-atp
+  name: shufflebench-kstreams-15-atp
 spec:
   benchmark: shuffle-kstreams
   load:
@@ -34,7 +34,14 @@ spec:
         properties:
           container: "shuffle-kstreams"
           variableName: "MATCHER_ZIPF_TOTAL_SELECTIVITY"
-      value: "1.0"
+      value: "1"
+    - patcher:
+        type: "EnvVarPatcher"
+        resource: "shuffle-kstreams-deployment.yaml"
+        properties:
+          container: "shuffle-kstreams"
+          variableName: "MATCHER_ZIPF_S"
+      value: "1.5"
     - patcher:
         type: "NodeSelectorPatcher"
         resource: "shuffle-kstreams-deployment.yaml"
