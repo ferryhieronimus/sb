@@ -1,7 +1,7 @@
 apiVersion: theodolite.rocks/v1beta1
 kind: execution
 metadata:
-  name: shufflebench-kstreams-skew-10-atp
+  name: shufflebench-kstreams-skew-08-atp
 spec:
   benchmark: shuffle-kstreams
   load:
@@ -19,7 +19,7 @@ spec:
       name: "LinearSearch"
     duration: 450 # in seconds
     loadGenerationDelay: 60 # in seconds
-    repetitions: 1
+    repetitions: 2
   configOverrides:
     - patcher:
         type: "EnvVarPatcher"
@@ -41,7 +41,7 @@ spec:
         properties:
           container: "shuffle-kstreams"
           variableName: "MATCHER_ZIPF_S"
-      value: "1.0"
+      value: "0.8"
     - patcher:
         type: "NodeSelectorPatcher"
         resource: "shuffle-kstreams-deployment.yaml"

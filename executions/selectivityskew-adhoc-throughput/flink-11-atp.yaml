@@ -1,7 +1,7 @@
 apiVersion: theodolite.rocks/v1beta1
 kind: execution
 metadata:
-  name: shufflebench-flink-skew-05-atp
+  name: shufflebench-flink-skew-11-atp
 spec:
   benchmark: shuffle-flink
   load:
@@ -18,7 +18,7 @@ spec:
       name: "LinearSearch"
     duration: 450 # in seconds
     loadGenerationDelay: 60 # in seconds
-    repetitions: 1
+    repetitions: 2
   configOverrides:
     - patcher:
         type: "EnvVarPatcher"
@@ -40,7 +40,7 @@ spec:
         properties:
           container: "jobmanager"
           variableName: "MATCHER_ZIPF_S"
-      value: "0.5"
+      value: "1.1"
     - patcher:
         type: "NodeSelectorPatcher"
         resource: "jobmanager-deployment.yaml"

@@ -1,9 +1,9 @@
 apiVersion: theodolite.rocks/v1beta1
 kind: execution
 metadata:
-  name: shufflebench-flink-skew-10-atp
+  name: shufflebench-kstreams-skew-11-atp
 spec:
-  benchmark: shuffle-flink
+  benchmark: shuffle-kstreams
   load:
     loadType: "MessagesPerSecond"
     loadValues: [150000]
@@ -12,44 +12,39 @@ spec:
     resourceValues: [9]
   slos:
     - name: throughput
+      properties: {}
   execution:
     metric: capacity
     strategy:
       name: "LinearSearch"
     duration: 450 # in seconds
     loadGenerationDelay: 60 # in seconds
-    repetitions: 1
+    repetitions: 2
   configOverrides:
     - patcher:
         type: "EnvVarPatcher"
-        resource: "jobmanager-deployment.yaml"
+        resource: "shuffle-kstreams-deployment.yaml"
         properties:
-          container: "jobmanager"
+          container: "shuffle-kstreams"
           variableName: "MATCHER_ZIPF_NUM_RULES"
       value: "1000000"
     - patcher:
         type: "EnvVarPatcher"
-        resource: "jobmanager-deployment.yaml"
+        resource: "shuffle-kstreams-deployment.yaml"
         properties:
-          container: "jobmanager"
+          container: "shuffle-kstreams"
           variableName: "MATCHER_ZIPF_TOTAL_SELECTIVITY"
       value: "1"
     - patcher:
         type: "EnvVarPatcher"
-        resource: "jobmanager-deployment.yaml"
+        resource: "shuffle-kstreams-deployment.yaml"
         properties:
-          container: "jobmanager"
+          container: "shuffle-kstreams"
           variableName: "MATCHER_ZIPF_S"
-      value: "1.0"
+      value: "1.1"
     - patcher:
         type: "NodeSelectorPatcher"
-        resource: "jobmanager-deployment.yaml"
-        properties:
-          variableName: "type"
-      value: "sut"
-    - patcher:
-        type: "NodeSelectorPatcher"
-        resource: "taskmanager-deployment.yaml"
+        resource: "shuffle-kstreams-deployment.yaml"
         properties:
           variableName: "type"
       value: "sut"
