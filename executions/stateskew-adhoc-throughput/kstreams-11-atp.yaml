@@ -19,7 +19,7 @@ spec:
       name: "LinearSearch"
     duration: 450 # in seconds
     loadGenerationDelay: 60 # in seconds
-    repetitions: 1
+    repetitions: 2
   configOverrides:
     - patcher:
         type: "EnvVarPatcher"
@@ -48,7 +48,7 @@ spec:
         properties:
           container: "shuffle-kstreams"
           variableName: "CONSUMER_STATE_SIZE_ZIPF_EXPONENT"
-      value: "0.8"
+      value: "1.1"
     - patcher:
         type: "NodeSelectorPatcher"
         resource: "shuffle-kstreams-deployment.yaml"
