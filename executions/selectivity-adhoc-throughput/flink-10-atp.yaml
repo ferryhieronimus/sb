@@ -6,7 +6,7 @@ spec:
   benchmark: shuffle-flink
   load:
     loadType: "MessagesPerSecond"
-    loadValues: [150000]
+    loadValues: [250000]
   resources:
     resourceType: "Instances"
     resourceValues: [9]
@@ -16,9 +16,9 @@ spec:
     metric: capacity
     strategy:
       name: "LinearSearch"
-    duration: 450 # in seconds
-    loadGenerationDelay: 60 # in seconds
-    repetitions: 2
+    duration: 900 # in seconds
+    loadGenerationDelay: 30 # in seconds
+    repetitions: 3
   configOverrides:
     - patcher:
         type: "EnvVarPatcher"
