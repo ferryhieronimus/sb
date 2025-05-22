@@ -47,7 +47,7 @@ spec:
         properties:
           container: "jobmanager"
           variableName: "CONSUMER_STATE_FIXED_BYTES"
-      value: "1024"
+      value: "32"
     - patcher:
         type: "NodeSelectorPatcher"
         resource: "jobmanager-deployment.yaml"
