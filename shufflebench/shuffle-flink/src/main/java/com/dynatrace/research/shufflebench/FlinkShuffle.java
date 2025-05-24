@@ -5,6 +5,7 @@ import com.dynatrace.research.shufflebench.matcher.MatcherService;
 import com.dynatrace.research.shufflebench.matcher.SerializableMatcherService;
 import com.dynatrace.research.shufflebench.matcher.SimpleMatcherService;
 import com.dynatrace.research.shufflebench.record.*;
+import com.dynatrace.research.shufflebench.util.RandomZipfDistributor;
 import io.smallrye.config.SmallRyeConfig;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.typeinfo.TypeHint;
@@ -26,6 +27,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.List;
+import java.util.ArrayList;
 
 public class FlinkShuffle {
 
@@ -67,12 +70,36 @@ public class FlinkShuffle {
           }
         });
     final int outputRate = config.getValue("consumer.output.rate", Integer.class);
-    final int stateSizeBytes = config.getValue("consumer.state.size.bytes", Integer.class);
+    final int stateSizeBytes = config.getValue("consumer.state.fixed.bytes", Integer.class);
     final boolean initCountRandom = config.getValue("consumer.init.count.random", Boolean.class);
     final long initCountSeed = config.getValue("consumer.init.count.seed", Long.class);
 
-    final StatefulConsumer consumer = new SerializableStatefulConsumer(
-            () -> new AdvancedStateConsumer("counter", outputRate, stateSizeBytes, initCountRandom, initCountSeed));
+    String dist = config.getOptionalValue("consumer.state.size.distribution", String.class).orElse("uniform");
+    final StatefulConsumer consumer;
+    if ("zipf".equalsIgnoreCase(dist)) {
+      int minBytes = config.getValue("consumer.state.size.min.bytes", Integer.class);
+      int maxBytes = config.getValue("consumer.state.size.max.bytes", Integer.class);
+      double exponent = config.getValue("consumer.state.size.zipf.exponent", Double.class);
+
+      List<String> ruleIds = new ArrayList<>();
+      if (selectivities != null) {
+        int totalRules = selectivities.values().stream().mapToInt(i -> i).sum();
+        for (int i = 0; i < totalRules; i++) {
+          ruleIds.add("consumer_" + i);
+        }
+      } else {
+        for (int i = 0; i < numRules; i++) {
+          ruleIds.add("consumer_" + i);
+        }
+      }
+
+      Map<String,Integer> stateMap = RandomZipfDistributor.fromRuleIds(ruleIds, minBytes, maxBytes, exponent, 0x2e3fac4f58fc98b4L);
+      consumer = new SerializableStatefulConsumer(
+          () -> new AdvancedStateConsumer("counter", outputRate, stateMap, initCountRandom, initCountSeed));
+    } else {
+      consumer = new SerializableStatefulConsumer(
+          () -> new AdvancedStateConsumer("counter", outputRate, stateSizeBytes, initCountRandom, initCountSeed));
+    }
 
     this.env = StreamExecutionEnvironment.getExecutionEnvironment();
 

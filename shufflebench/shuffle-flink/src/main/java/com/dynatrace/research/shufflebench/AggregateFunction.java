@@ -35,7 +35,7 @@ public class AggregateFunction
             Collector<Tuple2<String, ConsumerEvent>> out) throws Exception {
 
         final State stateValue = this.state.value();
-        final ConsumerResult consumerResult = this.consumer.accept(recordWithKey.f1, stateValue);
+        final ConsumerResult consumerResult = this.consumer.acceptWithKey(recordWithKey.f0, recordWithKey.f1, stateValue);
         this.state.update(consumerResult.getState());
         consumerResult.getEvent().ifPresent(event -> out.collect(Tuple2.of(recordWithKey.f0, event)));
     }

@@ -35,7 +35,7 @@ public class StatefulConsumerProcessor extends ContextualFixedKeyProcessor<Strin
     @Override
     public void process(FixedKeyRecord<String, TimestampedRecord> record) {
         final State stateValue = this.state.get(record.key());
-        final ConsumerResult consumerResult = this.consumer.accept(record.value(), stateValue);
+        final ConsumerResult consumerResult = this.consumer.acceptWithKey(record.key(), record.value(), stateValue);
         this.state.put(record.key(), consumerResult.getState());
         consumerResult.getEvent().ifPresent(event -> {
             final FixedKeyRecord<String, ConsumerEvent> newRecord = record.withValue(event);

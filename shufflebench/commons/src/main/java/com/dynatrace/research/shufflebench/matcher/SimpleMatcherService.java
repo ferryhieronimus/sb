@@ -8,7 +8,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class SimpleMatcherService<T extends Record> implements MatcherService<T> {
+
+  private static final Logger SELECTIVITY_LOGGER = LoggerFactory.getLogger("Selectivities");
+
 
   private final Map<String, MatchingRule> matchingRuleEntries = new HashMap<>();
 
@@ -79,8 +85,13 @@ public class SimpleMatcherService<T extends Record> implements MatcherService<T>
       final double selectivity = entry.getKey();
       for (int i = 0; i < numRules; i++) {
         final int ruleNumber = ruleCounter.getAndIncrement();
+        String consumerId = "consumer_" + ruleNumber;
+        
+        // Log the consumer ID and its assigned selectivity
+        SELECTIVITY_LOGGER.info("{},{}", ruleNumber, selectivity);
+        
         matcherService.addMatchingRule(
-            "consumer_" + ruleNumber,
+            consumerId,
             new RangeBasedMatchingRule(Hashing.komihash4_3().hashStream().putLong(seed).putInt(ruleNumber).getAsLong(), selectivity));
       }
     });
