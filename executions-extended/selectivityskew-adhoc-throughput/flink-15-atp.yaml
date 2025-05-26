@@ -18,7 +18,7 @@ spec:
       name: "LinearSearch"
     duration: 300 # in seconds
     loadGenerationDelay: 60 # in seconds
-    repetitions: 2
+    repetitions: 1
   configOverrides:
     - patcher:
         type: "EnvVarPatcher"
