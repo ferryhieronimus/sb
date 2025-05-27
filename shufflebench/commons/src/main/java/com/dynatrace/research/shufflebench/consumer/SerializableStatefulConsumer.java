@@ -22,6 +22,12 @@ public class SerializableStatefulConsumer implements StatefulConsumer, Serializa
         return this.consumer.accept(record, state);
     }
 
+    @Override
+    public ConsumerResult acceptWithKey(String key, TimestampedRecord record, State state) {
+        this.buildConsumerIfAbsent();
+        return this.consumer.acceptWithKey(key, record, state);
+    }
+
     private void buildConsumerIfAbsent() {
         if (this.consumer == null) {
             this.consumer = this.consumerFactory.get();

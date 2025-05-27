@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.SplittableRandom;
 
 import static java.util.Objects.requireNonNull;
@@ -28,11 +29,13 @@ public class AdvancedStateConsumer implements StatefulConsumer {
 
   private final int outputRate;
 
-  private final int stateSizeInBytes;
+  private final int defaultStateSize;
 
   private final boolean initCountRandom;
 
   private final Hasher64 hasher;
+
+  private final Map<String,Integer> stateSizeByRule;
 
   public AdvancedStateConsumer(String name, int outputRate) {
     this(name, outputRate, DEFAULT_STATE_SIZE);
@@ -45,13 +48,28 @@ public class AdvancedStateConsumer implements StatefulConsumer {
   public AdvancedStateConsumer(String name, int outputRate, int stateSizeInBytes, boolean initCountRandom, long seed) {
     this.name = requireNonNull(name);
     this.outputRate = outputRate;
-    this.stateSizeInBytes = requireStateSizeGteDefault(stateSizeInBytes);
+    this.defaultStateSize = requireStateSizeGteDefault(stateSizeInBytes);
+    this.stateSizeByRule = null;
+    this.initCountRandom = initCountRandom;
+    this.hasher = Hashing.komihash4_3(seed);
+  }
+
+  public AdvancedStateConsumer(String name, int outputRate,Map<String,Integer> stateSizeByRule, boolean initCountRandom, long seed) {
+    this.name = requireNonNull(name);
+    this.outputRate = outputRate;
+    this.stateSizeByRule = requireNonNull(stateSizeByRule);
+    this.defaultStateSize = DEFAULT_STATE_SIZE;
     this.initCountRandom = initCountRandom;
     this.hasher = Hashing.komihash4_3(seed);
   }
 
   @Override
   public ConsumerResult accept(TimestampedRecord record, State state) {
+    return acceptWithKey(null, record, state);
+  }
+
+  @Override
+  public ConsumerResult acceptWithKey(String key, TimestampedRecord record, State state) {
     if (state == null) {
       state = new State();
     }
@@ -59,7 +77,12 @@ public class AdvancedStateConsumer implements StatefulConsumer {
     byte[] data = state.getData();
     long countInit = -1; // No count init per default
     if (data == null) {
-      data = new byte[stateSizeInBytes];
+      // choose buffer size
+      int bufSize = (stateSizeByRule != null && key != null)
+          ? stateSizeByRule.getOrDefault(key, defaultStateSize)
+          : defaultStateSize;
+
+      data = new byte[bufSize];
       state.setData(data);
 
       if (initCountRandom) {

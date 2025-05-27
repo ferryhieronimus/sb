@@ -5,6 +5,7 @@ import com.dynatrace.research.shufflebench.consumer.StatefulConsumer;
 import com.dynatrace.research.shufflebench.matcher.MatcherService;
 import com.dynatrace.research.shufflebench.matcher.SimpleMatcherService;
 import com.dynatrace.research.shufflebench.record.*;
+import com.dynatrace.research.shufflebench.util.RandomZipfDistributor;
 import io.smallrye.config.SmallRyeConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.*;
@@ -57,6 +58,7 @@ public class KafkaStreamsShuffle {
           s,
           0x2e3fac4f58fc98b4L);
     }
+    
     final int outputRate = config.getValue("consumer.output.rate", Integer.class);
     final int stateSizeBytes = config.getValue("consumer.state.fixed.bytes", Integer.class);
     final boolean initCountRandom = config.getValue("consumer.init.count.random", Boolean.class);
@@ -64,7 +66,33 @@ public class KafkaStreamsShuffle {
     final StatefulConsumerProcessor.StoreType storeType
             = StatefulConsumerProcessor.StoreType.fromName(config.getValue("kafkastreams.store.type", String.class));
 
-    final StatefulConsumer consumer = new AdvancedStateConsumer("counter", outputRate, stateSizeBytes, initCountRandom, initCountSeed);
+    String dist = config.getOptionalValue("consumer.state.size.distribution", String.class).orElse("uniform");
+    
+    final StatefulConsumer consumer;
+    if ("zipf".equalsIgnoreCase(dist)) {
+      int minBytes = config.getValue("consumer.state.size.min.bytes", Integer.class);
+      int maxBytes = config.getValue("consumer.state.size.max.bytes", Integer.class);
+      double exponent = config.getValue("consumer.state.size.zipf.exponent", Double.class);
+
+      // build rule-id list
+      List<String> ruleIds = new ArrayList<>();
+      if (selectivities.isPresent()) {
+        int totalRules = selectivities.get().values().stream().mapToInt(i -> i).sum();
+        for (int i = 0; i < totalRules; i++) {
+          ruleIds.add("consumer_" + i);
+        }
+      } else {
+        int numRules = config.getValue("matcher.zipf.num.rules", Integer.class);
+        for (int i = 0; i < numRules; i++) {
+          ruleIds.add("consumer_" + i);
+        }
+      }
+
+      Map<String,Integer> stateMap = RandomZipfDistributor.fromRuleIds(ruleIds, minBytes, maxBytes, exponent, 0x2e3fac4f58fc98b4L);
+      consumer = new AdvancedStateConsumer("counter", outputRate, stateMap, initCountRandom, initCountSeed);
+    } else {
+      consumer = new AdvancedStateConsumer("counter", outputRate, stateSizeBytes, initCountRandom, initCountSeed);
+    }
 
     final StreamsBuilder builder = new StreamsBuilder();
     builder.stream(kafkaInputTopic, Consumed.with(Serdes.ByteArray(), new RecordSerde()))
