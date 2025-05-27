@@ -64,6 +64,11 @@ public class CountingConsumer implements StatefulConsumer {
       return new ConsumerResult(state);
     }
   }
+  
+  @Override
+  public ConsumerResult acceptWithKey(String key, TimestampedRecord record, State state) {
+    return accept(record, state);
+  }
 
   private static int requireStateSizeGteDefault(int stateSize) {
     if (stateSize < DEFAULT_STATE_SIZE) {
