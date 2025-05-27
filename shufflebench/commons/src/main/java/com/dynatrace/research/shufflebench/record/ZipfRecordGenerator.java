@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 /**
  * Generates Records whose lengths follow a Zipf distribution
- * over the integer range [minSize … maxSize].
+ * over the integer range [minSize ... maxSize].
  */
 public class ZipfRecordGenerator implements Supplier<Record> {
 
@@ -16,7 +16,6 @@ public class ZipfRecordGenerator implements Supplier<Record> {
   private final SplittableRandom rng;
   private final double[] cdf;
   private final int minSize;
-  private final int maxSize;
   private final int supportSize;
 
   /**
@@ -39,7 +38,6 @@ public class ZipfRecordGenerator implements Supplier<Record> {
     }
     this.rng = new SplittableRandom(seed);
     this.minSize = minSize;
-    this.maxSize = maxSize;
     this.supportSize = maxSize - minSize + 1;
 
     // build CDF over ranks 1…supportSize

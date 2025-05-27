@@ -67,7 +67,7 @@ public class FlinkShuffle {
           }
         });
     final int outputRate = config.getValue("consumer.output.rate", Integer.class);
-    final int stateSizeBytes = config.getValue("consumer.state.size.bytes", Integer.class);
+    final int stateSizeBytes = config.getValue("consumer.state.fixed.bytes", Integer.class);
     final boolean initCountRandom = config.getValue("consumer.init.count.random", Boolean.class);
     final long initCountSeed = config.getValue("consumer.init.count.seed", Long.class);
 
