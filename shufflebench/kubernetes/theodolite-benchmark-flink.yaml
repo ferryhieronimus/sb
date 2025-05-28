@@ -330,7 +330,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.05, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.05, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -342,7 +342,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.10, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.10, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -354,7 +354,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.15, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.15, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -366,7 +366,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.20, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.20, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -378,7 +378,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.25, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.25, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -390,7 +390,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.30, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.30, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -402,7 +402,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.35, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.35, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -414,7 +414,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.40, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.40, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -426,7 +426,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.45, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.45, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -438,7 +438,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.50, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.50, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -450,7 +450,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.55, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.55, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -462,7 +462,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.60, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.60, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -474,7 +474,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.65, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.65, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -486,7 +486,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.70, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.70, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -498,7 +498,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.75, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.75, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -510,7 +510,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.80, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.80, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -522,7 +522,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.85, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.85, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -534,7 +534,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.90, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.90, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -546,7 +546,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.95, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.95, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -558,7 +558,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(0.99, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(0.99, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
@@ -570,7 +570,7 @@ spec:
       offset: 0
       properties:
         externalSloUrl: "http://localhost:8082"
-        promQLQuery: "histogram_quantile(1.00, sum(rate(shufflebench_latency_seconds_bucket[720s])) by (le))"
+        promQLQuery: "histogram_quantile(1.00, sum(rate(shufflebench_latency_seconds_bucket[120s])) by (le))"
         queryAggregation: mean
         repetitionAggregation: median
         operator: "true"
