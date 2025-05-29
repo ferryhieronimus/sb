@@ -22,7 +22,7 @@ import java.util.*;
 public class KafkaStreamsShuffle {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(KafkaStreamsShuffle.class);
-
+  private static final Logger RECORD_SIZE_LOGGER = LoggerFactory.getLogger("RecordSizes");
   private static final String APPLICATION_ID = "shufflebench-kstreams";
 
   private final KafkaStreams kafkaStreamsApp;

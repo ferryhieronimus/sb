@@ -1,16 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Extra logging related to initialization of Log4j.
- Set to debug or trace if log4j initialization is failing. -->
 <Configuration status="warn">
     <Appenders>
-        <!-- Console appender configuration -->
+        <!-- Console appender for general logging -->
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout
-                    pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
         </Console>
+        
+        <!-- File appender specifically for record sizes -->
+        <File name="RecordSizeFile" fileName="logs/record-sizes.csv" append="false" immediateFlush="true">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} - %m%n"/>
+        </File>
+
+                <!-- Add this to your Appenders section -->
+        <File name="SelectivityFile" fileName="logs/selectivities.csv"  append="false" immediateFlush="true">
+            <PatternLayout pattern="%m%n"/>
+        </File>
+
+        <File name="StateSizeFile" fileName="logs/state-sizes.csv"  append="false" immediateFlush="true">
+            <PatternLayout pattern="%m%n"/>
+        </File>
+
     </Appenders>
+    
     <Loggers>
-        <!-- Root logger referring to console appender -->
+        <!-- Specific logger for KafkaStreamsShuffle class -->
+        <Logger name="com.dynatrace.research.shufflebench.KafkaStreamsShuffle" level="info" additivity="false">
+            <!-- Send record size logs to the file -->
+            <AppenderRef ref="RecordSizeFile"/>
+        </Logger>
+        
+        <Logger name="RecordSizes" level="info" additivity="false">
+            <AppenderRef ref="RecordSizeFile"/>
+        </Logger>
+
+        <Logger name="Selectivities" level="info" additivity="false">
+            <AppenderRef ref="SelectivityFile"/>
+        </Logger>
+
+        <Logger name="StateSizes" level="info" additivity="false">
+            <AppenderRef ref="StateSizeFile"/>
+        </Logger>
+
+        <!-- Root logger for other logs -->
         <Root level="${env:LOG_LEVEL:-info}" additivity="false">
             <AppenderRef ref="console"/>
         </Root>
