@@ -76,16 +76,15 @@ public class AdvancedStateConsumer implements StatefulConsumer {
 
     byte[] data = state.getData();
     long countInit = -1; // No count init per default
+
+    Logger stateLogger = LoggerFactory.getLogger("StateSizes");
+    stateLogger.info("{}", key);
+
     if (data == null) {
       // choose buffer size
       int bufSize = (stateSizeByRule != null && key != null)
           ? stateSizeByRule.getOrDefault(key, defaultStateSize)
           : defaultStateSize;
-
-          if (key != null) {
-            Logger stateLogger = LoggerFactory.getLogger("StateSizes");
-            stateLogger.info("{},{}", key, bufSize);
-        }
 
       data = new byte[bufSize];
       state.setData(data);
